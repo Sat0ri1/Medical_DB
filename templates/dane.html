@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data panel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4facfed5 0%, #00f1fea6 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .header {
+            text-align: center;
+            color: #333;
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background-color: #faf6f0;
+            padding: 17px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 500px;
+            margin-top: 50px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+        }
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%; 
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4facfe;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #00f2fe;
+        }
+        .table-container {
+            background-color: #faf6f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 1000px;
+            overflow-x: auto;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4facfe;
+            color: #faf6f0;
+        }
+        tr:nth-child(even) {
+            background-color: #e3f2fd; 
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <h1>Choose data to display</h1>
+        </div>
+        <form method="post" action="{% url 'dane' %}">
+            {% csrf_token %}
+            <label for="table">Select a Table:</label>
+            <select name="table" id="table">
+                <option value="Employes">Employees</option>
+                <option value="Projects">Projects</option>
+                <option value="Laboratories">Laboratories</option>
+                <option value="Experiments">Experiments</option>
+                <option value="Methods">Methods</option>
+                <option value="KeyWords">Key words</option>
+                <option value="Patients">Patients</option>
+                <option value="Diagnosis">Diagnosis</option>
+            </select>
+            <br><br>
+            <button type="submit">&#10132;</button>
+        </form>
+    </div>
+
+    {% if data %}
+    <div class="table-container">
+        <h2>Data from table {{ table_name }}:</h2>
+        <div style="overflow-x: auto;">
+            <table>
+                <tr>
+                    {% for column in data.0 %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+                {% for row in data|slice:"1:" %}
+                <tr>
+                    {% for item in row %}
+                    <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>

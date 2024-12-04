@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Panel</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4facfed5 0%, #00f1fea6 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            max-width: 1000px;
+            width: 90%; 
+            margin: 20px 0; 
+            overflow: hidden;
+            justify-content: space-between; 
+        }
+        .left-box, .right-box {
+            padding: 30px; 
+            background-color: #faf6f0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            font-size: 13px;
+            width: 48%; 
+        }
+        .left-box {
+            border-radius: 10px 0 0 10px; 
+            margin-right: 1%; 
+        }
+        .right-box {
+            border-radius: 0 10px 10px 0; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 1%; 
+        }
+        .data-button {
+            display: inline-block;
+            width: 170px; 
+            height: 170px; 
+            border-radius: 50%; 
+            background: linear-gradient(to right, #5ffae0 20%, #5d73f0 100%); 
+            text-align: center;
+            line-height: 170px; 
+            color: #fff; 
+            font-size: 27px; 
+            font-weight: normal; 
+            text-decoration: none;
+            font-family: 'Arial', 'Helvetica', sans-serif; 
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .data-button:hover {
+            background-color: #4facfe; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+        }
+        .muss {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-size: 10px;
+            font-weight: normal; 
+            color: #721c24; 
+            text-align: center;
+            margin-top: 15px;
+            background-color: #f8d7da; 
+            border: 1px solid #f5c6cb; 
+            padding: 10px; 
+            border-radius: 8px; 
+            width: 15%; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+        .login-register-container {
+            display: flex;
+            justify-content: space-between;
+            width: 50%; 
+            margin-bottom: 20px; 
+        }
+        .link {
+            display: inline-block;
+            padding: 15px 30px; 
+            background-color: #4facfe;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .link:hover {
+            background-color: #00f2fe;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nawigator.html' %}
+    <div class="container">
+        <div class="left-box">
+            <h1>Informations about the project:</h1>
+            <p>This page is used to manage a medical database containing patients' data, employees' data, and others.</p>
+            <p>User can log in, register, or log out by clicking the annotations at the top of the screen.</p>
+            <p>Registration is necessary to display data.</p>
+        </div>
+        <div class="right-box">
+            <a class="data-button" href="{% url 'choose' %}">DATA</a>
+        </div>
+    </div>
+    {% if not user.is_authenticated %}
+        <p class="muss">You must be logged in to acces data.</p>
+    {% endif %}
+</body>
+</html>
